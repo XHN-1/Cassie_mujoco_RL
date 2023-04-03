@@ -1,0 +1,13 @@
+command_profile: clock
+dyn_random: False
+env_name: Cassie-v0
+history: 0
+ik_baseline: None
+input_profile: full
+learn_gains: False
+mirror: True
+no_delta: True
+recurrent: False
+reward: 5k_speed_reward
+simrate: 60
+traj: None
