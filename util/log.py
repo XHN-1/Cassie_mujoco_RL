@@ -1,11 +1,13 @@
 from collections import OrderedDict
 import hashlib, os, pickle
 
+
 class color:
-    BOLD   = '\033[1m\033[48m'
-    END    = '\033[0m'
+    BOLD = '\033[1m\033[48m'
+    END = '\033[0m'
     ORANGE = '\033[38;5;202m'
-    BLACK  = '\033[38;5;240m'
+    BLACK = '\033[38;5;240m'
+
 
 # Logger stores in trained_models by default
 def create_logger(args):
@@ -14,11 +16,11 @@ def create_logger(args):
 
     arg_dict = args.__dict__
     assert "seed" in arg_dict, \
-    "You must provide a 'seed' key in your command line arguments"
+        "You must provide a 'seed' key in your command line arguments"
     assert "logdir" in arg_dict, \
-    "You must provide a 'logdir' key in your command line arguments."
+        "You must provide a 'logdir' key in your command line arguments."
     assert "env_name" in arg_dict, \
-    "You must provide a 'env_name' key in your command line arguments."
+        "You must provide a 'env_name' key in your command line arguments."
 
     # sort the keys so the same hyperparameters will always have the same hash
     arg_dict = OrderedDict(sorted(arg_dict.items(), key=lambda t: t[0]))
@@ -44,8 +46,8 @@ def create_logger(args):
                 output_dir = args.previous[0:-1] + '-cont'
         else:
             # get a unique hash for the hyperparameter settings, truncated at 10 chars
-            arg_hash   = hashlib.md5(str(arg_dict).encode('ascii')).hexdigest()[0:6] + '-seed' + seed
-            logdir     = os.path.join(logdir, env_name)
+            arg_hash = hashlib.md5(str(arg_dict).encode('ascii')).hexdigest()[0:6] + '-seed' + seed
+            logdir = os.path.join(logdir, env_name)
             output_dir = os.path.join(logdir, arg_hash)
 
     # create a directory with the hyperparm hash as its name, if it doesn't
@@ -68,6 +70,7 @@ def create_logger(args):
 
     logger.dir = output_dir
     return logger
+
 
 # Rule for curriculum learning is that env observation space should be the same (so attributes like env.clock_based or env.state_est shouldn't be different and are forced to be same here)
 # deal with loading hyperparameters of previous run continuation

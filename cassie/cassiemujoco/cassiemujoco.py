@@ -21,7 +21,9 @@ import numpy as np
 _dir_path = os.path.dirname(os.path.realpath(__file__))
 
 # Initialize libcassiesim
-cassie_mujoco_init(str.encode(_dir_path+"/cassie.xml"))
+cassie_mujoco_init(str.encode(_dir_path + "/cassie.xml"))
+
+
 # cassie_mujoco_init(str.encode(_dir_path+"/cassie_hfield.xml"))
 # cassie_mujoco_init(str.encode("../model/cassie_hfield.xml"))
 
@@ -145,14 +147,14 @@ class CassieSim:
         ptr = cassie_sim_dof_damping(self.c)
         ret = np.zeros(self.nv)
         for i in range(self.nv):
-          ret[i] = ptr[i]
+            ret[i] = ptr[i]
         return ret
-    
+
     def get_body_mass(self):
         ptr = cassie_sim_body_mass(self.c)
         ret = np.zeros(self.nbody)
         for i in range(self.nbody):
-          ret[i] = ptr[i]
+            ret[i] = ptr[i]
         return ret
 
     def get_body_ipos(self):
@@ -160,39 +162,39 @@ class CassieSim:
         ptr = cassie_sim_body_ipos(self.c)
         ret = np.zeros(nbody)
         for i in range(nbody):
-          ret[i] = ptr[i]
+            ret[i] = ptr[i]
         return ret
 
     def get_geom_friction(self):
         ptr = cassie_sim_geom_friction(self.c)
         ret = np.zeros(self.ngeom * 3)
         for i in range(self.ngeom * 3):
-          ret[i] = ptr[i]
+            ret[i] = ptr[i]
         return ret
 
     def get_geom_rgba(self):
         ptr = cassie_sim_geom_rgba(self.c)
         ret = np.zeros(self.ngeom * 4)
         for i in range(self.ngeom * 4):
-          ret[i] = ptr[i]
+            ret[i] = ptr[i]
         return ret
 
     def get_geom_quat(self):
         ptr = cassie_sim_geom_quat(self.c)
         ret = np.zeros(self.ngeom * 4)
         for i in range(self.ngeom * 4):
-          ret[i] = ptr[i]
+            ret[i] = ptr[i]
         return ret
 
     def set_dof_damping(self, data):
         c_arr = (ctypes.c_double * self.nv)()
 
         if len(data) != self.nv:
-          print("SIZE MISMATCH SET_DOF_DAMPING()")
-          exit(1)
-        
+            print("SIZE MISMATCH SET_DOF_DAMPING()")
+            exit(1)
+
         for i in range(self.nv):
-          c_arr[i] = data[i]
+            c_arr[i] = data[i]
 
         cassie_sim_set_dof_damping(self.c, c_arr)
 
@@ -205,7 +207,7 @@ class CassieSim:
             if len(data) != self.nbody:
                 print("SIZE MISMATCH SET_BODY_MASS()")
                 exit(1)
-            
+
             for i in range(self.nbody):
                 c_arr[i] = data[i]
 
@@ -220,23 +222,23 @@ class CassieSim:
         c_arr = (ctypes.c_double * nbody)()
 
         if len(data) != nbody:
-          print("SIZE MISMATCH SET_BODY_IPOS()")
-          exit(1)
-        
+            print("SIZE MISMATCH SET_BODY_IPOS()")
+            exit(1)
+
         for i in range(nbody):
-          c_arr[i] = data[i]
+            c_arr[i] = data[i]
 
         cassie_sim_set_body_ipos(self.c, c_arr)
 
     def set_geom_friction(self, data, name=None):
         if name is None:
-            c_arr = (ctypes.c_double * (self.ngeom*3))()
+            c_arr = (ctypes.c_double * (self.ngeom * 3))()
 
-            if len(data) != self.ngeom*3:
+            if len(data) != self.ngeom * 3:
                 print("SIZE MISMATCH SET_GEOM_FRICTION()")
                 exit(1)
 
-            for i in range(self.ngeom*3):
+            for i in range(self.ngeom * 3):
                 c_arr[i] = data[i]
 
             cassie_sim_set_geom_friction(self.c, c_arr)
@@ -245,7 +247,6 @@ class CassieSim:
             for i in range(3):
                 fric_array[i] = data[i]
             cassie_sim_set_geom_name_friction(self.c, name.encode(), fric_array)
-
 
     def set_geom_rgba(self, data):
         ngeom = self.ngeom * 4
@@ -260,7 +261,7 @@ class CassieSim:
             c_arr[i] = data[i]
 
         cassie_sim_set_geom_rgba(self.c, c_arr)
-    
+
     def set_geom_quat(self, data, name=None):
         if name is None:
             ngeom = self.ngeom * 4
@@ -281,7 +282,6 @@ class CassieSim:
                 quat_array[i] = data[i]
             cassie_sim_set_geom_name_quat(self.c, name.encode(), quat_array)
 
-    
     def set_const(self):
         cassie_sim_set_const(self.c)
 
@@ -313,7 +313,7 @@ class CassieSim:
             exit(1)
         data_arr = (ctypes.c_float * nhfielddata)(*data)
         cassie_sim_set_hfielddata(self.c, ctypes.cast(data_arr, ctypes.POINTER(ctypes.c_float)))
-    
+
     def get_hfield_data(self):
         nhfielddata = self.get_nhfielddata()
         ret = np.zeros(nhfielddata)
@@ -331,9 +331,9 @@ class CassieSim:
             size_array[i] = data[i]
         cassie_sim_set_hfield_size(self.c, size_array)
 
-
     def __del__(self):
         cassie_sim_free(self.c)
+
 
 class CassieVis:
     def __init__(self, c, modelfile):
@@ -368,6 +368,7 @@ class CassieVis:
     def __del__(self):
         cassie_vis_free(self.v)
 
+
 class CassieState:
     def __init__(self):
         self.s = cassie_state_alloc()
@@ -400,6 +401,7 @@ class CassieState:
 
     def __del__(self):
         cassie_state_free(self.s)
+
 
 class CassieUdp:
     def __init__(self, remote_addr='127.0.0.1', remote_port='25000',
