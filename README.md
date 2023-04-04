@@ -1,11 +1,27 @@
-<img src="https://github.com/osudrl/apex/blob/master/apex-logo.png" alt="apex" width="200"/>
+<img src="img/apex-logo.png" alt="apex" width="200"/>
 
 ----
+Original repository: https://github.com/osudrl/apex
 
 Apex is a small, modular library that contains some implementations of continuous reinforcement learning algorithms. Fully compatible with OpenAI gym.
 
 <img src="img/output.gif" alt="running1"/>
 <img src="img/output2.gif" alt="running2"/>
+
+## Enviroment
+
+Ubuntu 20.04、MuJoCo 200、Python 3.10
+
+Required Python packages
+```
+pytorch scipy matplotlib pandas lxml ray tensorboard
+```
+
+### MuJoCo
+Download [mujoco200](https://www.roboti.us/download.html) and [Activation key](https://www.roboti.us/license.html) to path `~/.mujoco`
+
+Then add `export MUJOCO_KEY_PATH=/home/xxx/.mujoco/mjkey.txt` to the end of `~/.bashrc`
+
 
 ## Running experiments
 
@@ -13,15 +29,23 @@ Apex is a small, modular library that contains some implementations of continuou
 Any algorithm can be run from the apex.py entry point.
 
 To run PPO on a cassie environment,
-
-```bash
-python apex.py ppo --env_name Cassie-v0 --num_procs 12 --run_name experiment01
+```powershell
+python apex.py ppo --env_name Cassie-v0 --num_procs 12 --run_name experiment01 --reward iros_paper
 ```
 
 To run TD3 on the gym environment Walker-v2,
+```powershell
+python apex.py td3_async --env_name Walker-v2 --num_procs 12 --run_name experiment02  --reward iros_paper
+```
 
-```bash
-python apex.py td3_async --env_name Walker-v2 --num_procs 12 --run_name experiment02
+To continue training existing models
+```powershell
+python apex.py ppo --n_itr 1000 --num_procs 4 --run_name experiment03 --previous ${parent/path/of/actor.pt}
+```
+
+To test the trained models
+```powershell
+python apex.py eval --path ${parent/path/of/actor.pt}
 ```
 
 ## Logging details / Monitoring live training progress
