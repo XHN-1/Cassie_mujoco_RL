@@ -6,7 +6,7 @@ from util.eval import EvalProcessClass
 
 if __name__ == "__main__":
 
-    print_logo(subtitle="Maintained by Oregon State University's Dynamic Robotics Lab")
+    # print_logo(subtitle="Maintained by Oregon State University's Dynamic Robotics Lab")
     parser = argparse.ArgumentParser()
 
     """
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     parser.add_argument("--ik_baseline", default=False, action='store_true', dest='ik_baseline')             # use ik as baseline for aslip + delta policies?
     # mirror loss and reward
     parser.add_argument("--not_mirror", default=True, action='store_false', dest='mirror')             # mirror actions or not
-    parser.add_argument("--reward", default=None, type=str)                                             # reward to use. this is a required argument
+    parser.add_argument("--reward", default="iros_paper", type=str)  # reward to use. this is a required argument
 
     """
         General arguments for configuring the logger

@@ -30,12 +30,12 @@ Any algorithm can be run from the apex.py entry point.
 
 To run PPO on a cassie environment,
 ```powershell
-python apex.py ppo --env_name Cassie-v0 --num_procs 12 --run_name experiment01 --reward iros_paper
+python apex.py ppo --env_name Cassie-v0 --num_procs 12 --run_name experiment01
 ```
 
 To run TD3 on the gym environment Walker-v2,
 ```powershell
-python apex.py td3_async --env_name Walker-v2 --num_procs 12 --run_name experiment02  --reward iros_paper
+python apex.py td3_async --env_name Walker-v2 --num_procs 12 --run_name experiment02
 ```
 
 To continue training existing models
