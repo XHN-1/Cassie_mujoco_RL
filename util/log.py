@@ -90,5 +90,5 @@ def parse_previous(args):
             args.run_name = run_args.run_name + "_NEW-" + args.reward
         else:
             args.reward = run_args.reward
-            args.run_name = run_args.run_name + "--cont"
+            # args.run_name = run_args.run_name + "--cont"
     return args
