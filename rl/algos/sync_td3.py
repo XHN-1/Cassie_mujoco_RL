@@ -233,7 +233,7 @@ class TD3():
 
 # TODO: create way to resume experiment by loading actor and critic pt files
 def run_experiment(args):
-    from apex import env_factory, create_logger
+    from train import env_factory, create_logger
 
     # wrapper function for creating parallelized envs
     env_fn = env_factory(args.env_name, state_est=args.state_est, mirror=args.mirror, history=args.history)

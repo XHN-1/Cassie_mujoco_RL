@@ -1,20 +1,26 @@
-<img src="img/apex-logo.png" alt="apex" width="200"/>
+# Cassie_mujoco_RL
 
-----
+A small, modular library that contains some implementations of continuous reinforcement learning algorithms. Fully compatible with OpenAI gym.
+
 Original repository: https://github.com/osudrl/apex
-
-Apex is a small, modular library that contains some implementations of continuous reinforcement learning algorithms. Fully compatible with OpenAI gym.
 
 <img src="img/output.gif" alt="running1"/>
 <img src="img/output2.gif" alt="running2"/>
 
-## Enviroment
+## Environment
 
 Ubuntu 20.04、MuJoCo 200、Python 3.10
 
-Required Python packages
+Create conda environment
+``` Bash
+conda create -n cassie python=3.10
+conda activate cassie
 ```
-pytorch scipy matplotlib pandas lxml ray tensorboard
+
+Install required Python packages
+``` Bash
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+pip install scipy matplotlib pandas lxml tensorboard ray
 ```
 
 ### MuJoCo
@@ -26,26 +32,26 @@ Then add `export MUJOCO_KEY_PATH=/home/xxx/.mujoco/mjkey.txt` to the end of `~/.
 ## Running experiments
 
 ### Basics
-Any algorithm can be run from the apex.py entry point.
+Any algorithm can be run from the train.py entry point.
 
 To run PPO on a cassie environment,
-```powershell
-python apex.py ppo --env_name Cassie-v0 --num_procs 12 --run_name experiment01
+``` Bash
+python train.py ppo --env_name Cassie-v0 --num_procs 12 --run_name experiment01
 ```
 
 To run TD3 on the gym environment Walker-v2,
-```powershell
-python apex.py td3_async --env_name Walker-v2 --num_procs 12 --run_name experiment02
+``` Bash
+python train.py td3_async --env_name Walker-v2 --num_procs 12 --run_name experiment02
 ```
 
 To continue training existing models
-```powershell
-python apex.py ppo --n_itr 1000 --num_procs 4 --run_name experiment03 --previous ${parent/path/of/actor.pt}
+``` Bash
+python train.py ppo --n_itr 1000 --num_procs 4 --run_name experiment03 --previous ${parent/path/of/actor.pt}
 ```
 
 To test the trained models
-```powershell
-python apex.py eval --path ${parent/path/of/actor.pt}
+``` Bash
+python train.py eval --path ${parent/path/of/actor.pt}
 ```
 
 ## Logging details / Monitoring live training progress
@@ -53,8 +59,8 @@ Tensorboard logging is enabled by default for all algorithms. The logger expects
 
 A basic command line script illustrating this is:
 
-```bash
-python apex.py ars --logdir logs/ars --seed 1337
+``` Bash
+python train.py ars --logdir logs/ars --seed 1337
 ```
 
 The resulting directory tree would look something like this:

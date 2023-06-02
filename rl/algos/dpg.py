@@ -197,7 +197,7 @@ def collect_experience(policy, env, replay_buffer, initial_state, steps, random_
 def run_experiment(args):
   from time import time
 
-  from apex import env_factory, create_logger
+  from train import env_factory, create_logger
   from rl.policies.critic import FF_Critic, LSTM_Critic
   from rl.policies.actor import FF_Actor, LSTM_Actor
 
