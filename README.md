@@ -1,3 +1,5 @@
+
+
 # Cassie_mujoco_RL
 
 A small, modular library that contains some implementations of continuous reinforcement learning algorithms. Fully compatible with OpenAI gym.
@@ -86,7 +88,7 @@ Run ```$ tensorboard --logdir logs/``` then navigate to ```http://localhost:6006
 * `Cassie-v0` : basic unified environment for walking/running policies
 * `CassieTraj-v0` : unified environment with reference trajectories
 * `CassiePlayground-v0` : environment for executing autonomous missions
-* `CassieStanding-v0` : environment for training standing policies
+* `CassieStandingEnv-v0` : environment for training standing policies
 
 ## Algorithms:
 #### Currently implemented:
